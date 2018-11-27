@@ -1,0 +1,141 @@
+go
+CREATE PROCEDURE uspDeleteACoach  
+@CoachID int 
+ 
+AS 
+ 
+DELETE FROM [TCoaches] WHERE [intCoachID] = @CoachID  
+GO 
+
+
+
+------------------delete from TTeamCoaches
+go
+create procedure uspDeleteCoachFromTTeamCoach
+@CoachID int
+as
+Delete from [TTeamCoaches] where intCoachID = @CoachID
+go
+
+
+
+-------------delete a player
+go
+create procedure uspDeletePlayer
+@PlayerID int
+as
+Delete from [TPlayers] where intPlayerID = @PlayerID
+go
+
+
+-------------------delete a ref
+go
+create procedure uspDeleteRef
+@RefID int
+as
+delete from [TReferees] where intRefereeID = @RefID
+go
+
+
+-----------------delete a player from tteamplayer
+go
+create procedure uspDeletePlayerFromTeam
+@PlayerID int
+as 
+delete from [TTeamPlayers] where intPlayerID = @PlayerID
+go
+
+
+--------------------delete a ref from
+go
+create procedure uspDeleteRefFromGames
+@RefID int
+as
+delete from [TFieldGames] where intRefereeID = @RefID
+go
+
+-------------------create stored procedure that will update coach
+go
+create procedure uspUpdateACoach
+(
+	 @intCoachID                        AS INTEGER 
+	,@strFirstName                      AS VARCHAR(50) 
+	,@strMiddleName                     AS VARCHAR(50) 
+	,@strLastName                       AS VARCHAR(50)
+    ,@strChildsFirstName                AS VARCHAR(50) 
+	,@strChildsMiddleName               AS VARCHAR(50) 
+	,@strChildsLastName                 AS VARCHAR(50)
+    ,@dtmDateOfBirth                    AS Date
+	,@intGenderID	                    AS INTEGER	
+	,@strAddress	                    AS VARCHAR(50)
+	,@strCity		                    AS VARCHAR(50)	
+	,@intStateID	                 	AS INTEGER			
+	,@strZip			                AS VARCHAR(50)	
+	,@strHomePhone                      AS VARCHAR(50)
+	,@strCellPhone	                    AS VARCHAR(50)
+	,@strEmailAddress                   AS VARCHAR(50)
+    ,@intShirtSizeID                    AS INTEGER	
+)
+as
+	update	TCoaches
+	set		strFirstName = @strFirstName,
+			strMiddleName = @strMiddleName,
+			strLastName = @strLastName,
+			strChildsFirstName = @strChildsFirstName,
+			strChildsMiddleName = @strChildsMiddleName,
+			strChildsLastName = @strChildsLastName,
+			dtmDateOfBirth = @dtmDateOfBirth,
+			intGenderID = @intGenderID,
+			strAddress = @strAddress,
+			strCity = @strCity,
+			intStateID = @intStateID,
+			strZip = @strZip,
+			strHomePhone = @strHomePhone,
+			strCellPhone = @strCellPhone,
+			strEmailAddress = @strEmailAddress,
+			intShirtSizeID = @intShirtSizeID
+	from
+		TCoaches
+	where
+		intCoachID = @intCoachID
+go
+
+
+---------------------- create stored procedure to update refs
+go
+create procedure uspUpdateARef
+(
+	 @intRefereeID                      AS INTEGER 
+	,@strFirstName                      AS VARCHAR(50) 
+	,@strMiddleName                     AS VARCHAR(50) 
+	,@strLastName                       AS VARCHAR(50)
+    ,@dtmDateOfBirth                    AS Date
+	,@intGenderID	                    AS INTEGER	
+	,@strAddress	                    AS VARCHAR(50)
+	,@strCity		                    AS VARCHAR(50)	
+	,@intStateID	                 	AS INTEGER			
+	,@strZip			                AS VARCHAR(50)	
+	,@strHomePhone                      AS VARCHAR(50)
+	,@strCellPhone	                    AS VARCHAR(50)
+	,@strEmailAddress                   AS VARCHAR(50)
+)
+as
+	update	TReferees
+	set		strFirstName = @strFirstName,
+			strMiddleName = @strMiddleName,
+			strLastName = @strLastName,
+			dtmDateOfBirth = @dtmDateOfBirth,
+			intGenderID = @intGenderID,
+			strAddress = @strAddress,
+			strCity = @strCity,
+			intStateID = @intStateID,
+			strZip = @strZip,
+			strHomePhone = @strHomePhone,
+			strCellPhone = @strCellPhone,
+			strEmailAddress = @strEmailAddress
+
+		from	
+			TReferees
+		where
+			intRefereeID = @intRefereeID
+go
